@@ -4,7 +4,7 @@
   "description": "Frontend dependencies for the Go templ application",
   "private": true,
   "dependencies": {
-    "htmx.org": "2.0.9",
+    "htmx.org": "2.0.10",
     "htmx-ext-response-targets": "2.0.4",
     "ionicons": "8.1.0"
   },
