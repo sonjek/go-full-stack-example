@@ -17,7 +17,8 @@ templ NotesView(notes []storage.Note) {
                 hx-get="/add"
                 hx-target="#dialog"
                 hx-swap="outerHTML"
-                hx-target-error="#error"
+                hx-status:4xx="target:#error"
+                hx-status:5xx="target:#error"
             >
                 <ion-icon name="add-outline" class="text-lg"></ion-icon>
                 <span>New Note</span>

@@ -4,16 +4,16 @@ const theme = localStorage.getItem("theme") || (isDark ? "dark" : "light");
 document.documentElement.setAttribute("data-theme", theme);
 
 // CSRF Token Configuration for htmx requests
-document.addEventListener('htmx:configRequest', (event) => {
+document.addEventListener('htmx:config:request', (event) => {
   const meta = document.querySelector('meta[name="csrf-token"]');
   if (meta) {
-    event.detail.headers['X-Csrf-Token'] = meta.content;
+    event.detail.ctx.request.headers['X-Csrf-Token'] = meta.content;
   }
 });
 
 // Update CSRF Token on htmx request response
-document.addEventListener('htmx:beforeOnLoad', (event) => {
-  const newToken = event.detail.xhr.getResponseHeader('X-Csrf-Token');
+document.addEventListener('htmx:after:request', (event) => {
+  const newToken = event.detail.ctx.response.headers.get('X-Csrf-Token');
   if (newToken) {
     const meta = document.querySelector('meta[name="csrf-token"]');
     if (meta) meta.content = newToken;
@@ -56,12 +56,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // htmx requests logic
   if (window.htmx) {
     // Clear field errors after swap
-    htmx.on('htmx:afterSwap', ({ detail }) => {
-      if (detail.target.id === 'dialog') window.clearFieldErrors?.();
+    htmx.on('htmx:after:swap', ({ detail }) => {
+      if (detail.ctx.target?.id === 'dialog') window.clearFieldErrors?.();
     });
 
     // Update visibility of "No Notes" placeholder after note operations
-    htmx.on('htmx:afterRequest', ({ detail: { target } }) => {
+    htmx.on('htmx:after:request', ({ detail }) => {
+      const target = detail.ctx.target;
       const isNoteTarget = target?.id === 'notes' || target?.id?.startsWith('note-');
       const notes = document.getElementById('notes');
 

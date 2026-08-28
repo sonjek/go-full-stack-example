@@ -12,7 +12,10 @@ templ Modal(method, url, target, swap string, content templ.Component) {
                 hx-target={ target }
                 hx-swap={ swap }
                 hx-indicator=".htmx-indicator"
-                hx-on::after-request="if(event.detail.successful){window.closeDialog()}else{window.setFieldErrors(event.detail.xhr.responseText)}"
+                hx-status:422="swap:none"
+                hx-status:4xx="target:#error"
+                hx-status:5xx="target:#error"
+                hx-on::after:request="if(event.detail.ctx.response.status < 400){window.closeDialog()}else if(event.detail.ctx.response.status === 422){window.setFieldErrors(event.detail.ctx.text)}"
             >
                 @content
             </form>

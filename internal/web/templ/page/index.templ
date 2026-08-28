@@ -13,7 +13,6 @@ templ Index(body templ.Component, csrfToken string) {
             <meta name="viewport" content="width=device-width, initial-scale=1"/>
             <meta name="csrf-token" content={ csrfToken }/>
             <script src="/static/js/htmx.min.js"></script>
-            <script src="/static/js/response-targets.min.js"></script>
             <script src="/static/js/app.js"></script>
             <link href="/static/css/style.css" rel="stylesheet"/>
             <script type="module" src="/static/js/ionicons/ionicons.esm.js"></script>
@@ -22,7 +21,7 @@ templ Index(body templ.Component, csrfToken string) {
         <body class="min-h-screen bg-base-300 flex flex-col">
             @components.Navbar()
 
-            <main class="flex-grow container mx-auto px-4 py-4" hx-ext="response-targets">
+            <main class="flex-grow container mx-auto px-4 py-4">
                 @body
             </main>
 
