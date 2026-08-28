@@ -47,7 +47,7 @@ func sendErrorMsg(c fiber.Ctx, errorMsg string) error {
 type fieldErrors map[string]string
 
 func sendFieldErrors(c fiber.Ctx, errors fieldErrors) error {
-	c.Status(http.StatusBadRequest)
+	c.Status(http.StatusUnprocessableEntity)
 	c.Type("json")
 	return c.JSON(fieldErrorsResponse{Errors: errors})
 }

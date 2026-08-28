@@ -16,7 +16,8 @@ templ NoteItem(note storage.Note, loadMoreURL ...string) {
             hx-trigger="intersect once"
             hx-target="this"
             hx-swap="afterend"
-            hx-target-error="#error"
+            hx-status:4xx="target:#error"
+            hx-status:5xx="target:#error"
             hx-push-url="false"
             hx-indicator=".htmx-indicator"
         }
@@ -35,7 +36,8 @@ templ NoteItem(note storage.Note, loadMoreURL ...string) {
                             hx-get={ "/edit/" + strconv.Itoa(note.ID) }
                             hx-target="#dialog"
                             hx-swap="outerHTML"
-                            hx-on::after-request="if(!event.detail.successful){const e=document.getElementById('error');if(e)e.innerHTML=event.detail.xhr.responseText}"
+                            hx-status:4xx="target:#error"
+                            hx-status:5xx="target:#error"
                         >Edit</a>
                     </li>
                     <li>
@@ -43,7 +45,6 @@ templ NoteItem(note storage.Note, loadMoreURL ...string) {
                             hx-delete={ "/api/v1/notes/" + strconv.Itoa(note.ID) }
                             hx-target={ "#note-" + strconv.Itoa(note.ID) }
                             hx-swap="delete"
-                            hx-on::after-request="this.closest('.card').remove()"
                             class="text-error"
                         >Delete</a>
                     </li>

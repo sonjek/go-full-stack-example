@@ -44,7 +44,6 @@ get-js-deps:
 	@command -v bun &> /dev/null && bun install || docker run --rm -v "$(PWD):/app" -w /app oven/bun:1.3 bun install
 	@mkdir -p internal/web/static/js internal/web/static/css
 	@cp node_modules/htmx.org/dist/htmx.min.js internal/web/static/js/
-	@cp node_modules/htmx-ext-response-targets/dist/response-targets.min.js internal/web/static/js/
 	@bun tailwindcss -i internal/web/static/css/input.css -o internal/web/static/css/style.css --minify
 	@cp -r node_modules/ionicons/dist/ionicons internal/web/static/js/
 

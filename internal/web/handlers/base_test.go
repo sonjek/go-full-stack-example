@@ -179,7 +179,7 @@ func Test_CreateNote_EmptyTitle(t *testing.T) {
 	resp, err := app.Test(req)
 
 	require.NoError(t, err)
-	assert.Equal(t, http.StatusBadRequest, resp.StatusCode)
+	assert.Equal(t, http.StatusUnprocessableEntity, resp.StatusCode)
 }
 
 func Test_CreateNote_EmptyBody(t *testing.T) {
@@ -197,7 +197,7 @@ func Test_CreateNote_EmptyBody(t *testing.T) {
 	resp, err := app.Test(req)
 
 	require.NoError(t, err)
-	assert.Equal(t, http.StatusBadRequest, resp.StatusCode)
+	assert.Equal(t, http.StatusUnprocessableEntity, resp.StatusCode)
 }
 
 func Test_CreateNote_DuplicateTitle(t *testing.T) {
@@ -225,7 +225,7 @@ func Test_CreateNote_DuplicateTitle(t *testing.T) {
 	resp, err = app.Test(req)
 
 	require.NoError(t, err)
-	assert.Equal(t, http.StatusBadRequest, resp.StatusCode)
+	assert.Equal(t, http.StatusUnprocessableEntity, resp.StatusCode)
 
 	body, _ := io.ReadAll(resp.Body)
 	assert.Contains(t, string(body), service.MsgTitleAlreadyExists)
@@ -246,7 +246,7 @@ func Test_CreateNote_WhitespaceOnlyTitle(t *testing.T) {
 	resp, err := app.Test(req)
 
 	require.NoError(t, err)
-	assert.Equal(t, http.StatusBadRequest, resp.StatusCode)
+	assert.Equal(t, http.StatusUnprocessableEntity, resp.StatusCode)
 }
 
 func Test_CreateNote_MissingCSRF(t *testing.T) {
