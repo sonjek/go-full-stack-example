@@ -1,4 +1,5 @@
 GOLANGCI_LINT_PACKAGE ?= github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.13.2
+GO_TOOLS_MODFILE ?= go.tools.mod
 
 # -------------------------------------------------------------------------------------------------
 # main
@@ -34,8 +35,10 @@ run-docker:
 .PHONY: prepare-data
 prepare-data: .deps-stamp get-js-deps generate-web generate-swagger
 
-.deps-stamp: go.mod go.sum
+# .deps-stamp avoids re-downloading modules on every build; rebuilt when Go mod files change.
+.deps-stamp: go.mod go.sum $(GO_TOOLS_MODFILE) go.tools.sum
 	go mod download
+	GOWORK=off go mod download -modfile=$(GO_TOOLS_MODFILE)
 	@touch .deps-stamp
 
 ## get-js-deps: Install frontend dependencies using bun (locally if available and otherwise via Docker)
@@ -63,17 +66,17 @@ test: check-go
 ## generate-web: Compile templ files via github.com/a-h/templ/cmd/templ
 .PHONY: generate-web
 generate-web: check-go
-	go tool templ generate
+	GOWORK=off go tool -modfile=$(GO_TOOLS_MODFILE) templ generate
 
 ## generate-swagger: Generate swagger documentation via swaggo/swag
 .PHONY: generate-swagger
 generate-swagger: check-go
-	go tool swag init --dir ./cmd/app,./internal/web/handlers -g main.go --parseDependency --parseInternal
+	GOWORK=off go tool -modfile=$(GO_TOOLS_MODFILE) swag init --dir ./cmd/app,./internal/web/handlers -g main.go --parseDependency --parseInternal
 
 ## air: Build and start application in live reload mode via air
 .PHONY: air
 air: prepare-data
-	go tool air
+	GOWORK=off go tool -modfile=$(GO_TOOLS_MODFILE) air
 
 ## lint: Run golangci-lint to lint Go files
 .PHONY: lint
@@ -94,6 +97,7 @@ format:
 .PHONY: audit
 audit:
 	go mod verify
+	GOWORK=off go mod verify -modfile=$(GO_TOOLS_MODFILE)
 	go vet ./...
 	go run golang.org/x/vuln/cmd/govulncheck@latest ./...
 
@@ -105,6 +109,7 @@ audit:
 .PHONY: tidy
 tidy: check-go
 	go mod tidy
+	GOWORK=off go mod tidy -modfile=$(GO_TOOLS_MODFILE)
 
 ## update-deps: Update Go dependencies
 .PHONY: update-deps
@@ -116,6 +121,7 @@ update-deps: check-go
 .PHONY: get-deps
 get-deps: check-go
 	go mod download
+	GOWORK=off go mod download -modfile=$(GO_TOOLS_MODFILE)
 
 ## check-go: Check that Go is installed
 .PHONY: check-go
