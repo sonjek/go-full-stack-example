@@ -38,6 +38,8 @@ jobs:
               - "**/*.templ"
               - "go.mod"
               - "go.sum"
+              - "go.tools.mod"
+              - "go.tools.sum"
               - "bun.lock"
               - "Makefile"
 
