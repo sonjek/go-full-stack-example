@@ -32,10 +32,11 @@ jobs:
       with:
         fetch-depth: 0
     - name: Set up Go
-      uses: actions/setup-go@v6
+      uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7
       with:
         go-version-file: go.mod
         check-latest: true
+        cache: false
     - name: Run generate templ files
       run: make generate-web
     - name: Setup golangci-lint
@@ -55,10 +56,11 @@ jobs:
     - uses: actions/checkout@v6
       with:
         fetch-depth: 0
-    - uses: actions/setup-go@v6
+    - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7
       with:
         go-version-file: go.mod
         check-latest: true
+        cache: false
     - name: Setup Bun
       uses: oven-sh/setup-bun@v2.2.0
     - name: Run generate templ files
@@ -76,10 +78,11 @@ jobs:
     - uses: actions/checkout@v6
       with:
         fetch-depth: 0
-    - uses: actions/setup-go@v6
+    - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7
       with:
         go-version-file: go.mod
         check-latest: true
+        cache: false
     - name: Setup Bun
       uses: oven-sh/setup-bun@v2.2.0
     - name: Build
