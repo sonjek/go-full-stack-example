@@ -9,7 +9,7 @@
   },
   "devDependencies": {
     "@tailwindcss/cli": "4.3.3",
-    "daisyui": "5.7.22",
+    "daisyui": "5.7.24",
     "tailwindcss": "4.3.3"
   },
   "engines": {
