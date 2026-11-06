@@ -5,7 +5,7 @@
     "": {
       "name": "go-full-stack-example",
       "dependencies": {
-        "htmx.org": "4.0.0",
+        "htmx.org": "4.0.1",
         "ionicons": "8.1.0",
       },
       "devDependencies": {
@@ -114,7 +114,7 @@
 
     "graceful-fs": ["graceful-fs@4.2.11", "", {}, "sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ=="],
 
-    "htmx.org": ["htmx.org@4.0.0", "", { "bin": { "upgrade-check": "dist/scripts/upgrade-check.js" } }, "sha512-T/171FUY93Kdfp8t+DnHdk45QvKRiBhVhhrwSzrXgUi4pHKvhp77dUA/qg8FAjsFWPIHNbmUuIdCrcVHuiZWng=="],
+    "htmx.org": ["htmx.org@4.0.1", "", { "bin": { "upgrade-check": "dist/scripts/upgrade-check.js" } }, "sha512-oF7JgXhDW9UXCy/k1ZYFUQgzu/rm19ORWPSPNL91vPluB2PB9+MV55tyQdH/w7o2EAbTYUG5SDW1R60mdkdqGg=="],
 
     "ionicons": ["ionicons@8.1.0", "", { "dependencies": { "@stencil/core": "^4.43.5" } }, "sha512-XSM2gYWTXxSYTwjmKWAoy4yR7AbAFDjpc5ZIivAiGXskM0fe5CdMPfs6InQRUcrYtVb2WZ/0HQ1/jeh3JW78SA=="],
 
