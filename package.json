@@ -5,7 +5,7 @@
   "private": true,
   "dependencies": {
     "htmx.org": "4.0.1",
-    "ionicons": "8.1.0"
+    "ionicons": "8.1.1"
   },
   "devDependencies": {
     "@tailwindcss/cli": "4.3.4",
